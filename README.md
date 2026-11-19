@@ -21,16 +21,19 @@ Choose **R Mascot: Disconnect Codex Auto-Sync** to remove only the mascot hooks 
 
 See the [Codex hooks documentation](https://developers.openai.com/codex/hooks) for hook events and trust behavior.
 
-## Install it locally
+## Download and install
 
-From this folder, package the extension and install the generated `.vsix`:
+Download the [ready-to-install VSIX](./radial-mascot-codex-buddy-0.2.5.vsix), then run:
 
 ```powershell
-npx @vscode/vsce package
 code --install-extension .\radial-mascot-codex-buddy-0.2.5.vsix
 ```
 
-Packaging may prompt `npx` to download `@vscode/vsce` if it is not already available. That is the VS Code packaging tool; it is not an API token. You only need Marketplace publisher credentials if you later choose to publish the extension publicly.
+You can also install it from VS Code's Extensions view using **Install from VSIX...**.
+
+## Package from source
+
+Run `npx @vscode/vsce package` from this folder to rebuild the VSIX. Packaging may prompt `npx` to download `@vscode/vsce` if it is not already available. You only need Marketplace publisher credentials if you later choose to publish the extension publicly.
 
 ## Included files
 

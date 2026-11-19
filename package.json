@@ -4,6 +4,10 @@
   "description": "An animated pixel-art dog companion in the VS Code Explorer.",
   "version": "0.2.5",
   "publisher": "local",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Miguelcastilloba/Radial-VS-Pet.git"
+  },
   "license": "UNLICENSED",
   "engines": {
     "vscode": "^1.85.0"
