@@ -1,0 +1,65 @@
+{
+  "name": "radial-mascot-codex-buddy",
+  "displayName": "R Mascot: Codex Buddy",
+  "description": "An animated pixel-art dog companion in the VS Code Explorer.",
+  "version": "0.2.2",
+  "publisher": "local",
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:radialMascot.petView",
+    "onCommand:radialMascot.open",
+    "onCommand:radialMascot.start",
+    "onCommand:radialMascot.stop",
+    "onCommand:radialMascot.toggle",
+    "onCommand:radialMascot.connectCodex",
+    "onCommand:radialMascot.disconnectCodex"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "radialMascot.petView",
+          "name": "Caucho",
+          "when": "radialMascot.viewEnabled"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "radialMascot.open",
+        "title": "R Mascot: Show Explorer Pet"
+      },
+      {
+        "command": "radialMascot.hide",
+        "title": "R Mascot: Hide Explorer Pet"
+      },
+      {
+        "command": "radialMascot.start",
+        "title": "R Mascot: Start Codex Work Animation"
+      },
+      {
+        "command": "radialMascot.stop",
+        "title": "R Mascot: Take a Break"
+      },
+      {
+        "command": "radialMascot.toggle",
+        "title": "R Mascot: Toggle Work Animation"
+      },
+      {
+        "command": "radialMascot.connectCodex",
+        "title": "R Mascot: Connect Codex Auto-Sync"
+      },
+      {
+        "command": "radialMascot.disconnectCodex",
+        "title": "R Mascot: Disconnect Codex Auto-Sync"
+      }
+    ]
+  }
+}
