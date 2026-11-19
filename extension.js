@@ -24,8 +24,9 @@ let statusPoller;
 function activate(context) {
   extensionContext = context;
   codexPaths = getCodexPaths();
-  selectedSkin = context.globalState.get(SKIN_KEY, 'default') === 'atleti'
-    ? 'atleti'
+  const savedSkin = context.globalState.get(SKIN_KEY, 'default');
+  selectedSkin = ['atleti', 'chivas', 'manutd', 'leones'].includes(savedSkin)
+    ? savedSkin
     : 'default';
   autoSyncEnabled = Boolean(
     context.globalState.get(AUTO_SYNC_KEY, false)
@@ -152,7 +153,9 @@ async function handleWebviewMessage(message) {
   } else if (message.type === 'disconnect') {
     await disconnectCodexAutoSync();
   } else if (message.type === 'skin') {
-    selectedSkin = message.value === 'atleti' ? 'atleti' : 'default';
+    selectedSkin = ['atleti', 'chivas', 'manutd', 'leones'].includes(message.value)
+      ? message.value
+      : 'default';
     await extensionContext.globalState.update(SKIN_KEY, selectedSkin);
     updateUi();
   }
@@ -406,7 +409,13 @@ function getWebviewContent(webview) {
   const nonce = getNonce();
   const spriteFile = selectedSkin === 'atleti'
     ? 'radial-mascot-atleti-26-27.png'
-    : 'radial-mascot-atlas.png';
+    : selectedSkin === 'chivas'
+      ? 'radial-mascot-chivas-26-27.png'
+      : selectedSkin === 'manutd'
+        ? 'radial-mascot-man-utd-26-27.png'
+        : selectedSkin === 'leones'
+          ? 'radial-mascot-leones-negros-26-27.png'
+          : 'radial-mascot-atlas.png';
   const spriteUri = webview.asWebviewUri(
     vscode.Uri.joinPath(
       extensionContext.extensionUri,
@@ -493,6 +502,9 @@ function getWebviewContent(webview) {
       <div><label for="skin">Mascot outfit</label><select id="skin" aria-label="Mascot outfit">
         <option value="default" ${selectedSkin === 'default' ? 'selected' : ''}>Default uniform</option>
         <option value="atleti" ${selectedSkin === 'atleti' ? 'selected' : ''}>Atlético 26/27</option>
+        <option value="chivas" ${selectedSkin === 'chivas' ? 'selected' : ''}>Chivas 26/27</option>
+        <option value="manutd" ${selectedSkin === 'manutd' ? 'selected' : ''}>Manchester United 26/27</option>
+        <option value="leones" ${selectedSkin === 'leones' ? 'selected' : ''}>Leones Negros 26/27</option>
       </select></div>
     </header>
     <main>
@@ -535,7 +547,7 @@ function getWebviewContent(webview) {
       atlasContext.drawImage(spriteSheet, 0, 0);
 
       // Clear small red matte flecks touching transparency, while preserving
-      // enclosed red pixels in the Atlético shirt.
+      // enclosed red pixels in the striped jerseys.
       const pixels = atlasContext.getImageData(0, 0, atlas.width, atlas.height);
       const data = pixels.data;
       const pixelCount = atlas.width * atlas.height;
