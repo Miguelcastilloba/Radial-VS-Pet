@@ -2,7 +2,7 @@
   "name": "radial-mascot-codex-buddy",
   "displayName": "R Mascot: Codex Buddy",
   "description": "An animated pixel-art dog companion in the VS Code Explorer.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publisher": "local",
   "license": "UNLICENSED",
   "engines": {
