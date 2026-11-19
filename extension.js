@@ -25,7 +25,7 @@ function activate(context) {
   extensionContext = context;
   codexPaths = getCodexPaths();
   const savedSkin = context.globalState.get(SKIN_KEY, 'default');
-  selectedSkin = ['atleti', 'chivas', 'manutd'].includes(savedSkin)
+  selectedSkin = ['atleti', 'chivas', 'manutd', 'leones'].includes(savedSkin)
     ? savedSkin
     : 'default';
   autoSyncEnabled = Boolean(
@@ -153,7 +153,7 @@ async function handleWebviewMessage(message) {
   } else if (message.type === 'disconnect') {
     await disconnectCodexAutoSync();
   } else if (message.type === 'skin') {
-    selectedSkin = ['atleti', 'chivas', 'manutd'].includes(message.value)
+    selectedSkin = ['atleti', 'chivas', 'manutd', 'leones'].includes(message.value)
       ? message.value
       : 'default';
     await extensionContext.globalState.update(SKIN_KEY, selectedSkin);
@@ -413,7 +413,9 @@ function getWebviewContent(webview) {
       ? 'radial-mascot-chivas-26-27.png'
       : selectedSkin === 'manutd'
         ? 'radial-mascot-man-utd-26-27.png'
-        : 'radial-mascot-atlas.png';
+        : selectedSkin === 'leones'
+          ? 'radial-mascot-leones-negros-26-27.png'
+          : 'radial-mascot-atlas.png';
   const spriteUri = webview.asWebviewUri(
     vscode.Uri.joinPath(
       extensionContext.extensionUri,
@@ -502,6 +504,7 @@ function getWebviewContent(webview) {
         <option value="atleti" ${selectedSkin === 'atleti' ? 'selected' : ''}>Atlético 26/27</option>
         <option value="chivas" ${selectedSkin === 'chivas' ? 'selected' : ''}>Chivas 26/27</option>
         <option value="manutd" ${selectedSkin === 'manutd' ? 'selected' : ''}>Manchester United 26/27</option>
+        <option value="leones" ${selectedSkin === 'leones' ? 'selected' : ''}>Leones Negros 26/27</option>
       </select></div>
     </header>
     <main>
